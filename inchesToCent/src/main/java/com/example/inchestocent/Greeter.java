@@ -1,5 +1,8 @@
 package com.example.inchestocent;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Greeter {
 
     private final GreetingDestination dest;
