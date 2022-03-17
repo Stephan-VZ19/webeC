@@ -7,7 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class InchesToCentApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(InchesToCentApplication.class, args);
+
+        var context = SpringApplication.run(InchesToCentApplication.class, args);
+
+        var greeter = context.getBean(Greeter.class);
+        greeter.greet("Spring Boot");
+
     }
 
 }
