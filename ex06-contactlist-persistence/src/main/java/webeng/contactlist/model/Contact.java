@@ -1,5 +1,6 @@
 package webeng.contactlist.model;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,7 +16,9 @@ public class Contact {
     private String firstName;
     private String lastName;
 
+    @ElementCollection
     private List<String> email;
+    @ElementCollection
     private List<String> phone;
 
     private String jobTitle;

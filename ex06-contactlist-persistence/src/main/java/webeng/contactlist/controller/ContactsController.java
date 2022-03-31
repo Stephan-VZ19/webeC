@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 import webeng.contactlist.service.ContactService;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -38,7 +35,7 @@ public class ContactsController {
         return "add-contact";
     }
 
-    @GetMapping("/contacts/add")
+    @PostMapping("/contacts/add")
     public String addContact(String firstName, String lastName,
                              String jobTitle, String company) {
         service.add(firstName, lastName, jobTitle, company);
