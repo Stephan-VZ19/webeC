@@ -33,6 +33,19 @@ public class ContactsController {
         return "contacts";
     }
 
+    @GetMapping("/contacts/add")
+    public String addContact(Model model) {
+        return "add-contact";
+    }
+
+    @GetMapping("/contacts/add")
+    public String addContact(String firstName, String lastName,
+                             String jobTitle, String company) {
+        service.add(firstName, lastName, jobTitle, company);
+
+        return "redirect:/contacts";
+    }
+
     @GetMapping("/contacts/{id}")
     public String showContact(@PathVariable int id, String search, Model model) {
         checkSearch(search);

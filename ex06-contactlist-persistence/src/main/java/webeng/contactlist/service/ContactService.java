@@ -3,6 +3,7 @@ package webeng.contactlist.service;
 import org.springframework.stereotype.Service;
 import webeng.contactlist.model.Contact;
 import webeng.contactlist.model.ContactListEntry;
+import webeng.contactlist.model.ContactRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +16,14 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class ContactService {
 
-    private final List<Contact> contacts;
+    private final ContactRepository repo;
 
-    public ContactService() {
-        contacts = new ArrayList<>();
+    public ContactService(ContactRepository repo) {
+        this.repo = repo;
     }
 
     public List<ContactListEntry> getContactList(String search) {
-        return contacts.stream()
+        return repo.findAll().stream()
                 .filter(c -> matches(c, search))
                 .sorted(comparing(Contact::getId))
                 .map(c -> new ContactListEntry(c.getId(), c.getFirstName() + " " + c.getLastName()))
@@ -44,19 +45,17 @@ public class ContactService {
     }
 
     public Optional<Contact> findContact(int id) {
-        return contacts.stream()
-                .filter(c -> c.getId() == id)
-                .findFirst();
+        return repo.findById(id);
     }
 
     public int phoneNumberCount() {
-        return contacts.stream()
+        return repo.findAll().stream()
                 .mapToInt(c -> c.getPhone().size())
                 .sum();
     }
 
     public int emailCount() {
-        return contacts.stream()
+        return repo.findAll().stream()
                 .mapToInt(c -> c.getEmail().size())
                 .sum();
     }
@@ -72,7 +71,7 @@ public class ContactService {
     }
 
     public Contact add(Contact contact) {
-        contacts.add(contact);
+        repo.save(contact);
         return contact; // important for later, when using Repository
     }
 }
