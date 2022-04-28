@@ -17,7 +17,6 @@
 
         <div th:if="${contact != null}">
             <table>
-                <thead>
                 <tr>
                     <th>Attribut</th>
                     <th>Wert</th>
@@ -28,22 +27,23 @@
                 </tr>
                 <tr>
                     <td>Last name</td>
-                    <td th:text="${contact.lastName}">Peter</td>
+                    <td th:text="${contact.lastName}">Muster</td>
                 </tr>
 
 
                 <tr th:replace="fragments::multiRow('Email', ${contact.email})"></tr>
 
+                <tr th:replace="fragments::multiRow('Phone', ${contact.phone})"></tr>
+
 
                 <tr th:if="${contact.jobTitle}">
                     <td>Job title</td>
-                    <td th:text="${contact.jobTitle}">Peter</td>
+                    <td th:text="${contact.jobTitle}">Arbeit</td>
                 </tr>
                 <tr th:if="${contact.company}">
                     <td>Company</td>
-                    <td th:text="${contact.company}">Peter</td>
+                    <td th:text="${contact.company}">Firma</td>
                 </tr>
-                </thead>
             </table>
         </div>
         <ol>
