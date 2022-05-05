@@ -2,12 +2,11 @@
 
 body {
     font-family: 'Krub', sans-serif;
-    font-size: 100%;
     margin: 0;
     background-color: whitesmoke;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 960px) {
     body {
         font-size: 120%;
     }
@@ -34,20 +33,21 @@ header, footer {
 }
 
 header h1 {
-    font-size: 300%;
+    font-size: min(8vw, 300%);
     font-weight: 200;
     color: crimson;
 }
 
 header nav ul {
     display: inline-block;
+    width: 100%;
     margin: 0;
     padding: 0;
 }
 
-@media (max-width: 640px) {
+@media (min-width: 640px) {
     header nav ul {
-        width: 100%;
+        width: auto;
     }
 }
 
@@ -142,20 +142,67 @@ table {
     border-collapse: collapse;
 }
 
-tr > * {
+/*
+ * Tables are "collapsed" by default on small devices (< 640px),
+ * except for "small" tables
+ */
+
+th, td {
+    display: block;
+}
+
+.small-table th, .small-table td {
+    display: table-cell;
+}
+
+.small-table tr > * {
     padding: 0.4em 0.8em;
 }
 
-tr:not(:last-child) > * {
+.small-table tr:not(:last-child) > * {
     border-bottom: whitesmoke 2px solid;
 }
 
-tr > :last-child {
+.small-table tr > :last-child {
     padding-right: 0;
 }
 
-tr > :first-child {
+.small-table tr > :first-child {
     padding-left: 0;
+}
+
+tr > :first-child {
+    padding-top: 0.4em;
+}
+
+tr > :last-child {
+    padding-bottom: 0.4em;
+}
+
+tr:not(:last-child) > :last-child {
+    border-bottom: whitesmoke 2px solid;
+}
+
+@media (min-width: 640px) {
+    th, td {
+        display: table-cell;
+    }
+
+    tr > * {
+        padding: 0.4em 0.8em;
+    }
+
+    tr:not(:last-child) > * {
+        border-bottom: whitesmoke 2px solid;
+    }
+
+    tr > :last-child {
+        padding-right: 0;
+    }
+
+    tr > :first-child {
+        padding-left: 0;
+    }
 }
 
 th {
@@ -208,8 +255,30 @@ input[type=submit]:hover, .button:hover {
 
 .grid-form {
     display: inline-grid;
-    grid-template-columns: auto auto;
-    grid-gap: 0.8em 1.2em;
+    grid-template-columns: auto;
+    width: 100%;
+}
+
+.grid-form * input[type=text],
+.grid-form * input[type=email] {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.grid-form > :nth-child(even):not(:last-child) {
+    margin-bottom: 0.4em;
+}
+
+@media (min-width: 640px) {
+    .grid-form {
+        grid-template-columns: auto auto;
+        grid-gap: 0.8em 1.2em;
+        width: auto;
+    }
+    .grid-form > :nth-child(even):not(:last-child) {
+        margin-bottom: 0;
+    }
 }
 
 ul.plain {
@@ -239,12 +308,30 @@ ul.plain > li {
 
 #contacts {
     display: flex;
+    flex-direction: column;
 }
 
+#contacts > :not(nav) {
+    margin-bottom: 1.5em;
+}
 
-@media (max-width: 640px) {
+#contacts > :not(nav) > :nth-child(2) > :last-child,
+#contacts > :not(nav) > :nth-child(2) > :last-child.paragraph {
+    margin-bottom: 0;
+}
+
+@media (min-width: 640px) {
     #contacts {
-        flex-direction: column;
+        flex-direction: row-reverse;
+    }
+    #contacts > nav {
+        margin-right: 2em;
+    }
+    #contacts > :not(nav) {
+        flex-grow: 1;
+    }
+    #contacts > :not(nav) {
+        margin-bottom: 0;
     }
 }
 
@@ -257,21 +344,28 @@ ul.plain > li {
     padding: 0.4em 0.8em;
 }
 
-#contacts > :not(nav) {
-    flex-grow: 1;
-}
-
-#contacts > :not(:last-child) {
-    margin-right: 2em;
-}
-
 #contacts table {
     width: 100%;
 }
 
 #contact-search {
-    text-align: right;
     margin-bottom: 1.6em;
+}
+
+#contact-search form {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#contact-search form :not(:last-child) {
+    flex-grow: 1;
+    margin-right: 5px;
+}
+
+@media (min-width: 480px) {
+    #contact-search form :not(:last-child) {
+        flex-grow: 0;
+    }
 }
 
 .hi {
