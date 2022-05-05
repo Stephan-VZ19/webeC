@@ -24,6 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/").permitAll()
                     .antMatchers("/about").permitAll()
                     .antMatchers("/**.css").permitAll()
+                    .antMatchers("/api/**").permitAll()
                     .antMatchers("/h2-console/**").permitAll()
                     .antMatchers("/contacts").authenticated()
                     .regexMatchers("/contacts/[0-9]+").authenticated()
