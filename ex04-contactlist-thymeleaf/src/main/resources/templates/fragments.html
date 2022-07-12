@@ -1,3 +1,10 @@
+<th th:fragment="singleRow(attribute, value)"
+    th:if="${value}">
+    <td th:text="${attribute}"></td>
+    <td th:text="${value}"></td>
+</th>
+
+
 <tr th:fragment="multiRow(attribute, list)"
     th:unless="${list.isEmpty}">
     <td th:text="${attribute}">Email</td>
